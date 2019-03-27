@@ -10,6 +10,7 @@ import (
 
 var sep = []byte("---")
 
+// TODO: allow to completely override CSS
 const mainTemplate = `
 <!doctype html>
 <html>
@@ -29,7 +30,7 @@ const mainTemplate = `
 		}
 
 		pre {
-			background-color: lightblue;
+			background-color: #f2f2f2;
 			padding: 1.5em;
 			color: #424242;
 		}
