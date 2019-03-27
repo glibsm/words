@@ -1,5 +1,7 @@
 # Words blog example
 
+![index page](./static/images/index.png)
+
 This example demonstrates how to use `package words`.
 
 Naming and placement of the files inside `posts/` does not matter, feel free to
@@ -47,5 +49,3 @@ date: 2019-09-26
 ```
 
 Now open `localhost:8080`
-
-![index page](./static/images/index.png)
