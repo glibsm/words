@@ -14,4 +14,4 @@ turpis. [cat pics] Diam sollicitudin tempor id eu nisl nunc mi ipsum faucibus.
 
 [links]: http://bit.ly/4kb77v
 [my code]: http://github.com
-[cat pics]: http://gibhu.com/glibsm/words
+[cat pics]: http://github.com/glibsm/words

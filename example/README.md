@@ -1,5 +1,6 @@
 # Words blog example
 
+You can see it live <https://words-example.gsmaga.com/>
 ![index page](./static/images/index.png)
 
 This example demonstrates how to use `package words`.

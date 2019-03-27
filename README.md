@@ -1,7 +1,9 @@
 # Words
 
-They are just words on a page.
-Why overcomplicate things?
+They are just words on a page. Why overcomplicate things?
+
+See the [example](example) directory for the source code that is running
+<https://words-example.gsmaga.com/>
 
 ## What is this repo
 
@@ -10,9 +12,6 @@ on the content, not faffing around with configuration, tempating and other
 stuff.
 
 Note this is a library, not a binary to be consumed.
-
-See [example](example) directory for a complete example of a blog with a few
-posts.
 
 ## Oh dear, not another one...
 
