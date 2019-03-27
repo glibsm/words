@@ -1,7 +1,7 @@
 ---
 slug: yes-even-images
 title: How to use images with glibsm/words
-date: 2019-09-26
+date: 2018-09-26
 ---
 # Ah yes, images! And other static gubbins.
 

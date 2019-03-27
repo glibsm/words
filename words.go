@@ -10,6 +10,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"sort"
 	"time"
 
 	"github.com/russross/blackfriday/v2"
@@ -64,6 +65,12 @@ func Serve(title string, opts ...Option) error {
 
 		posts = append(posts, p)
 	}
+
+	// sort posts in reverse chronological orders, as one would expect so the
+	// newest ones float to the top.
+	sort.SliceStable(posts, func(i, j int) bool {
+		return posts[i].Date.After(posts[j].Date)
+	})
 
 	indexContent, err := ioutil.ReadFile("index.md")
 	if err != nil {
