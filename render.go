@@ -47,6 +47,11 @@ const mainTemplate = `
 		img {
 			max-width: 100%;
 		}
+
+		blockquote {
+			font-style: italic;
+			color: gray;
+		}
 	</style>
 </head>
 <body>
