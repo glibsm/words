@@ -24,7 +24,7 @@ const mainTemplate = `
 			line-height:1.5;
 			font-family: verdana, serif;
 			font-size: 17px;
-			width: 700px;
+			width: 800px;
 			max-width: 100%;
 			margin-left: auto;
 			margin-right: auto;
