@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"html/template"
 	"log"
-
-	"github.com/russross/blackfriday/v2"
 )
 
 var sep = []byte("---")
@@ -31,7 +29,7 @@ const mainTemplate = `
 		}
 
 		pre {
-			background-color: #f2f2f2;
+			background-color: #f2f2f2 !important;
 			padding: 1.5em;
 			color: #424242;
 		}
@@ -109,7 +107,7 @@ func renderIndex(i index, posts []*post) ([]byte, error) {
 
 	template.Must(
 		t.New("blurb").Parse(
-			string(blackfriday.Run(i.html)),
+			string(i.html),
 		),
 	)
 

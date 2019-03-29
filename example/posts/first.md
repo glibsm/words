@@ -11,11 +11,23 @@ It has so many words in it, just like... wow.
 
 Would you look at that
 
-```
-import "fmt"
+```go
+package main
+
+import (
+	"log"
+
+	"github.com/glibsm/words"
+)
 
 func main() {
-    fmt.Printn("dis some codez")
+	err := words.Serve(
+		"Bloggy McBlogface",
+		words.Port(8080),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 ```
 

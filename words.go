@@ -13,6 +13,7 @@ import (
 	"sort"
 	"time"
 
+	"github.com/glibsm/words/internal/highlight"
 	"github.com/russross/blackfriday/v2"
 	"gopkg.in/yaml.v2"
 )
@@ -45,6 +46,8 @@ func Serve(title string, opts ...Option) error {
 		return fmt.Errorf("failed to locate blog posts")
 	}
 
+	hr := highlight.New()
+
 	var posts []*post
 	for _, f := range files {
 		p, err := read(f)
@@ -52,7 +55,7 @@ func Serve(title string, opts ...Option) error {
 			return fmt.Errorf("failed to parse %v: %v", f, err)
 		}
 
-		p.html = blackfriday.Run(p.content)
+		p.html = blackfriday.Run(p.content, blackfriday.WithRenderer(hr))
 		dest := filepath.Join(s.out, p.Slug)
 
 		rendered, err := renderPost(p)
@@ -80,7 +83,7 @@ func Serve(title string, opts ...Option) error {
 	indexRender, err := renderIndex(index{
 		title:   title,
 		content: indexContent,
-		html:    blackfriday.Run(indexContent),
+		html:    blackfriday.Run(indexContent, blackfriday.WithRenderer(hr)),
 	}, posts)
 	if err != nil {
 		return fmt.Errorf("failed to render index content: %v", err)
