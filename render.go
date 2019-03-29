@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"html/template"
+	"log"
 
 	"github.com/russross/blackfriday/v2"
 )
@@ -52,6 +53,13 @@ const mainTemplate = `
 			font-style: italic;
 			color: gray;
 		}
+
+		#postdate {
+			float: right;
+			font-style: italic;
+			font-size: 0.8em;
+			color: gray;
+		}
 	</style>
 </head>
 <body>
@@ -61,10 +69,9 @@ const mainTemplate = `
 `
 
 const postTemplate = `
-{{define "body"}}
 <a href="..">← BACK</a>
 {{template "content"}}
-{{end}}
+<div id="postdate">Written on {{.HumanDate}}</div>
 `
 
 const indexTemplate = `
@@ -76,13 +83,19 @@ const indexTemplate = `
 `
 
 func renderPost(p *post) ([]byte, error) {
-	t := template.Must(template.New("page").Parse(mainTemplate))
-	t.Parse(postTemplate)
+	pageT := template.Must(template.New("page").Parse(mainTemplate))
 
-	t.New("content").Parse(string(p.html))
+	var cb bytes.Buffer
+	bodyT := template.Must(template.New("body").Parse(postTemplate))
+	bodyT.New("content").Parse(string(p.html))
+	if err := bodyT.Execute(&cb, p); err != nil {
+		log.Fatal("failed to execute post content: %v", err)
+	}
+
+	pageT.New("body").Parse(cb.String())
 
 	var out bytes.Buffer
-	if err := t.Execute(&out, map[string]interface{}{
+	if err := pageT.Execute(&out, map[string]interface{}{
 		"Title": p.Title,
 	}); err != nil {
 		return nil, err
@@ -105,7 +118,7 @@ func renderIndex(i index, posts []*post) ([]byte, error) {
 		fmt.Fprintf(
 			&listBuf,
 			`%s <a href="%s">%s</a><br />`,
-			p.Date.Format("2006-01-02"), p.Slug, p.Title,
+			p.HumanDate, p.Slug, p.Title,
 		)
 	}
 	template.Must(

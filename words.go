@@ -110,8 +110,9 @@ func Serve(title string, opts ...Option) error {
 type post struct {
 	*metadata
 
-	content []byte // original MD content
-	html    []byte // processed through blackfriday
+	content   []byte // original MD content
+	html      []byte // processed through blackfriday
+	HumanDate string
 }
 
 type index struct {
@@ -156,7 +157,11 @@ func read(path string) (*post, error) {
 		return nil, errors.New("`title:` metadata is required")
 	}
 
-	return &post{metadata: md, content: b[mdEnd+6:]}, nil
+	return &post{
+		metadata:  md,
+		content:   b[mdEnd+6:],
+		HumanDate: md.Date.Format("2006-01-02"),
+	}, nil
 }
 
 type server struct {
