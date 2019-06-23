@@ -57,6 +57,7 @@ const mainTemplate = `
 			font-style: italic;
 			font-size: 0.8em;
 			color: gray;
+			margin-bottom: 5em;
 		}
 	</style>
 </head>
