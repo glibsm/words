@@ -88,7 +88,7 @@ func renderPost(p *post) ([]byte, error) {
 	bodyT := template.Must(template.New("body").Parse(postTemplate))
 	bodyT.New("content").Parse(string(p.html))
 	if err := bodyT.Execute(&cb, p); err != nil {
-		log.Fatal("failed to execute post content: %v", err)
+		log.Fatalf("failed to execute post content: %v", err)
 	}
 
 	pageT.New("body").Parse(cb.String())

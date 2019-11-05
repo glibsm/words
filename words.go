@@ -93,14 +93,16 @@ func Serve(title string, opts ...Option) error {
 	ioutil.WriteFile(dest, indexRender, os.ModePerm)
 	log.Println("Wrote out", dest)
 
-	// move static content over to the build team
-	// to copy one directory into another in pure Go is kind of wonky, so for now
-	// to save some time just syscall out. Sorry, Windows...
-	cmd := exec.Command("cp", "-r", "static", "_build/")
-	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("failed to move the static folder over: %v", err)
+	// move static content (if it exists) over to the build folder
+	if _, err := os.Stat("static"); err == nil {
+		// to copy one directory into another in pure Go is kind of wonky, so for now
+		// to save some time just syscall out. Sorry, Windows...
+		cmd := exec.Command("cp", "-r", "static", "_build/")
+		if err := cmd.Run(); err != nil {
+			return fmt.Errorf("failed to move the static folder over: %v", err)
+		}
+		log.Println("Copied over the static folder")
 	}
-	log.Println("Copied over the static folder")
 
 	fs := http.FileServer(http.Dir(s.out))
 	http.Handle("/", fs)
